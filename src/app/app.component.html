@@ -1,0 +1,54 @@
+
+<div class="container">
+<mat-label>Customers</mat-label>
+<mat-form-field appearance="standard" class="example-form">
+  <mat-label>Search</mat-label>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Type here" #input>
+</mat-form-field>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" autocomplete="off">
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let row"><span><img [src]="row.picture.medium" heigth="50" width="50"/></span> {{row.name && row.name.first}} {{row.name.last}} </td>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="dob">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> DOB </th>
+      <td mat-cell *matCellDef="let row"> {{row.dob && row.dob.date | date : 'dd-MMM-yyyy HH:MM'}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+      <td mat-cell *matCellDef="let row"> {{row.location && row.location.city}} </td>
+    </ng-container>
+
+    <!-- Fruit Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+    </ng-container>
+
+    <!-- Fruit Column -->
+    <ng-container matColumnDef="cell">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
+      <td mat-cell *matCellDef="let row"> {{row.cell}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="5">No data matching the filter "{{input.value}}"</td>
+    </tr>
+    
+  </table>
+  <mat-paginator [length]="length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions"
+               aria-label="Select page" #paginator>
+</mat-paginator></div>
+</div>
